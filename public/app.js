@@ -106,7 +106,7 @@ function initializeSidebarState() {
 }
 
 async function fetchJson(url) {
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-store" });
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}`);
   }
@@ -114,7 +114,7 @@ async function fetchJson(url) {
 }
 
 async function fetchText(url) {
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-store" });
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}`);
   }
@@ -125,7 +125,7 @@ async function loadFileIndex() {
   try {
     return await fetchJson("api/files");
   } catch (_error) {
-    return fetchJson("files.json");
+    return fetchJson(`files.json?t=${Date.now()}`);
   }
 }
 
@@ -134,7 +134,7 @@ async function loadMarkdownText(fileName) {
   try {
     return await fetchText(`api/files/${encodedFileName}`);
   } catch (_error) {
-    return fetchText(`output/${encodedFileName}`);
+    return fetchText(`output/${encodedFileName}?t=${Date.now()}`);
   }
 }
 
