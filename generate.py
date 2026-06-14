@@ -15,6 +15,8 @@ ROOT = Path(__file__).resolve().parent
 TOPICS_PATH = ROOT / "topics.json"
 PROMPT_TEMPLATE_PATH = ROOT / "prompt_template.md"
 OUTPUT_DIR = ROOT / "output"
+PUBLIC_DIR = ROOT / "public"
+DOCS_DIR = ROOT / "docs"
 DEFAULT_MODEL = "gpt-5.5"
 DEFAULT_CODEX_BIN = "codex"
 
@@ -244,6 +246,39 @@ def write_output(topic: Topic, markdown: str, output_dir: Path = OUTPUT_DIR) -> 
     return output_path
 
 
+def is_markdown_file(path: Path) -> bool:
+    return path.is_file() and path.suffix.lower() == ".md"
+
+
+def sync_docs(
+    public_dir: Path = PUBLIC_DIR,
+    output_dir: Path = OUTPUT_DIR,
+    docs_dir: Path = DOCS_DIR,
+) -> list[str]:
+    if not public_dir.exists():
+        raise FileNotFoundError(f"找不到 public 目錄: {public_dir}")
+
+    if docs_dir.exists():
+        shutil.rmtree(docs_dir)
+
+    shutil.copytree(public_dir, docs_dir)
+
+    docs_output_dir = docs_dir / "output"
+    if output_dir.exists():
+        shutil.copytree(output_dir, docs_output_dir)
+        files = sorted(path.name for path in output_dir.iterdir() if is_markdown_file(path))
+    else:
+        docs_output_dir.mkdir(parents=True, exist_ok=True)
+        files = []
+
+    (docs_dir / "files.json").write_text(
+        json.dumps({"files": files}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    return files
+
+
 def find_topic(topics: list[Topic], day: int) -> Topic:
     for topic in topics:
         if topic.day == day:
@@ -308,6 +343,10 @@ def main() -> None:
             codex_bin=codex_bin,
         )
         print(f"已產生: {output_path}")
+
+    docs_files = sync_docs()
+    print(f"已更新 docs: {DOCS_DIR}")
+    print(f"Markdown files: {', '.join(docs_files) if docs_files else '(none)'}")
 
 
 if __name__ == "__main__":
