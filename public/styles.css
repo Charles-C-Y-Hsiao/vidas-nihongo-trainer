@@ -359,6 +359,10 @@ body {
     grid-row: 1;
   }
 
+  #collapseSidebarButton {
+    display: none;
+  }
+
   .file-list {
     grid-column: 1;
     grid-row: 2;
@@ -384,6 +388,34 @@ body {
   .app-shell.sidebar-collapsed .sidebar {
     width: 100%;
     padding: 10px 16px;
+  }
+
+  .app-shell.sidebar-collapsed .brand {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .app-shell.sidebar-collapsed .brand-main {
+    justify-content: flex-start;
+  }
+
+  .app-shell.sidebar-collapsed .brand-text,
+  .app-shell.sidebar-collapsed .file-label {
+    display: block;
+  }
+
+  .app-shell.sidebar-collapsed .file-row {
+    justify-content: flex-end;
+  }
+
+  .app-shell.sidebar-collapsed .file-button {
+    justify-content: flex-start;
+    padding: 10px 12px;
+  }
+
+  .app-shell.sidebar-collapsed .file-short-label {
+    display: none;
   }
 
   .app-shell.sidebar-collapsed .reader {
