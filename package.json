@@ -1,0 +1,14 @@
+{
+  "name": "vidas-nihongo-reader",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express Markdown reader for VIDAS Nihongo Trainer output files.",
+  "main": "server.js",
+  "scripts": {
+    "build:pages": "node build-pages.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

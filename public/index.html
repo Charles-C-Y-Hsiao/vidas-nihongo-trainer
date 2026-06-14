@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VIDAS Nihongo Reader</title>
+    <link rel="stylesheet" href="styles.css?v=mobile-file-refresh-row" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Markdown files">
+        <div class="brand">
+          <div class="brand-main">
+            <span class="brand-mark">文</span>
+            <div class="brand-text">
+              <h1>VIDAS Reader</h1>
+              <p>日文學習內容</p>
+            </div>
+          </div>
+          <button
+            id="collapseSidebarButton"
+            class="icon-button"
+            type="button"
+            title="收合側邊欄"
+            aria-label="收合側邊欄"
+          >
+            &lt;
+          </button>
+        </div>
+
+        <div class="file-row">
+          <button
+            id="refreshButton"
+            class="icon-button"
+            type="button"
+            title="重新整理檔案列表"
+            aria-label="重新整理檔案列表"
+          >
+            ↻
+          </button>
+        </div>
+
+        <nav id="fileList" class="file-list" aria-label="檔案列表"></nav>
+      </aside>
+
+      <main class="reader">
+        <header class="reader-header">
+          <div>
+            <p class="eyebrow">Markdown Preview</p>
+            <h2 id="fileTitle">選擇一個 Markdown 檔案</h2>
+          </div>
+        </header>
+
+        <article id="content" class="markdown-body">
+          <div class="empty-state">
+            <h3>尚未選擇檔案</h3>
+            <p>請從左側導覽選擇 output 資料夾中的 Markdown。</p>
+          </div>
+        </article>
+      </main>
+    </div>
+
+    <script src="app.js?v=mobile-file-refresh-row"></script>
+  </body>
+</html>
